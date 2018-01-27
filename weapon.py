@@ -1,6 +1,6 @@
 class weapon(object):
 	def __init__(self,damage):
-		self.dmg = damage
+		self.damage = damage
 
 
 class sword(weapon):
