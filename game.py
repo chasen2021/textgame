@@ -4,7 +4,7 @@ from player import *
 def user_input():
 	while True:
 		print ("(S)trike => (P)ierce => (C)rush => (S)rike")
-		response = raw_input()
+		response = input()
 		if response.lower() not in ["s","p","c"]:
 			print("you stupid piece of garbage, thats not a valid input, try again")
 		else:
