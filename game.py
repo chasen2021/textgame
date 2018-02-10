@@ -45,7 +45,7 @@ def battleloop(player,enemy):
 		player.health = player.maxHP
 p = player()
 s = skelly_boi(fists(), 1)
-
+l=
 battleloop(p, s)
 
 

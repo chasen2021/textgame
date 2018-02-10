@@ -3,6 +3,7 @@ skill_tree = {	"awareness":["danger sense", "scent of loot", "spider sense"],
 				"precision":["critical blows", "sword affinity", "clean cuts"]
 				}
 skill_categories = ["awareness", "brute strength", "precision"]
+skill_letters = ['a','b','c']
 
 class token:
 	def __init__ (self):
