@@ -1,6 +1,7 @@
 from weapon import *
 from enemy import *
 from player import *
+from AI import *
 def user_input():
 	while True:
 		print ("(S)trike => (P)ierce => (C)rush => (S)rike")
@@ -9,8 +10,8 @@ def user_input():
 			print("you stupid piece of garbage, thats not a valid input, try again")
 		else:
 			return response.lower()
-def enemy_input():
-	return random.choice(["s","p","c"])
+def enemy_input(AI):
+	return AI.attack()
 def who_wins(x, y):
 	if x == y:
 		return None
@@ -23,13 +24,13 @@ def who_wins(x, y):
 
 
 
-def battleloop(player,enemy):
+def battleloop(player,enemy, AI):
 	print("A " + (enemy.name) + " appears. It has " + str(enemy.health) + " health. ")
 	while player.health > 0 and enemy.health > 0:
 		 x = user_input()
-		 y = enemy_input()
+		 y = enemy_input(AI)
 		 winner = who_wins (x, y)
-
+		 AI.update(x)
 		 if "user" == winner:
 		 	enemy.health -= player.weapon.damage
 		 	print("You hit the " + (enemy.name) + " dealing " + str(player.weapon.damage) + " damage. it has " + str(enemy.health) + " hp left. ")
@@ -45,8 +46,12 @@ def battleloop(player,enemy):
 		player.health = player.maxHP
 p = player()
 s = skelly_boi(fists(), 1)
-l=
-battleloop(p, s)
+a = random_model_ai()
+battleloop(p, s, a)
+print(a.sc)
+print(a.pc)
+print(a.cc)
+
 
 
 
