@@ -46,11 +46,9 @@ def battleloop(player,enemy, AI):
 		player.health = player.maxHP
 p = player()
 s = skelly_boi(fists(), 1)
-a = random_model_ai()
+a = history_model_ai()
 battleloop(p, s, a)
-print(a.sc)
-print(a.pc)
-print(a.cc)
+print(a.state[("s","s","s","s")])
 
 
 

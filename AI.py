@@ -1,7 +1,15 @@
 import random
+class AI:
+	def attack(self):
+		roll = self.belief()
+		if roll == "s":
+			return "c"
+		if roll =="p":
+			return "s"
+		else:
+			return "p"
 
-
-class random_model_ai:
+class random_model_ai(AI):
 	def __init__(self):
 		self.sc = 1
 		self.pc = 1
@@ -29,43 +37,52 @@ class random_model_ai:
 			return "p"
 		return "c"
 
-	def attack(self):
-		roll = self.belief()
-		if roll == "s":
-			return "c"
-		if roll =="p":
-			return "s"
-		else:
-			return "p"
+
 attacks = ['s','p','c']
-class history_model_ai:
+class history_model_ai(AI):
 	def __init__(self):
 		self.state = {}
 		for a1 in attacks:
 			for a2 in attacks:
 				for a3 in attacks:
 					for a4 in attacks:
-						self.state[(a1,a2,a3,a4)] = 1
-		self.normalize()
-		self.lr = 0.05
+						self.state[(a1,a2,a3,a4)] = {"s":1, "p":1, "c":1}
+		for a1 in attacks:
+			for a2 in attacks:
+				for a3 in attacks:
+					for a4 in attacks:
+						self.normalize((a1,a2,a3,a4))
+		self.lr = 0.1
 		self.history = []
 
-	def normalize(self):
+	def normalize(self, history):
+		d=self.state[history]
 		sum = 0
-		for a1 in attacks:
-			for a2 in attacks:
-				for a3 in attacks:
-					for a4 in attacks:
-						sum += self.state[(a1,a2,a3,a4)]
-		for a1 in attacks:
-			for a2 in attacks:
-				for a3 in attacks:
-					for a4 in attacks:
-						self.state[(a1,a2,a3,a4)] /= sum
+		for attack in ["s","p","c"]:
+			sum += d[attack]
+		for attack in ["s","p","c"]:
+			d[attack] /= float(sum)
+
 	def update(self,attack):
 		self.history.insert(0,attack)
 		self.history = self.history[0:4]
 		if len(self.history) == 4:
-			# todo update beliefs.
+			d=self.state[tuple(self.history)]
+			d["s"] = (1-self.lr) * d["s"] + self.lr * ("s" == attack)
+			d["p"] = (1-self.lr) * d["p"] + self.lr * ("p" == attack)
+			d["c"] = (1-self.lr) * d["c"] + self.lr * ("c" == attack)
+			self.normalize(tuple(self.history))
+
+	def belief(self):
+		if len(self.history) < 4:
+			return random.choice(attacks)
+		d=self.state[tuple(self.history)]
+		roll = random.random()
+		if roll < d["s"]:
+			return "s"
+		if roll < d["s"]+d["p"]:
+			return "p"
+		return "c"
+
 
 
