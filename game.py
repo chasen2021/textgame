@@ -41,15 +41,26 @@ def battleloop(player,enemy, AI):
 		 	print("You both miss and deal 0 damage")
 	if player.health == 0:
 		print ("you died")
+		exit(0)
 	else:
 		print ("You win")
 		player.health = player.maxHP
 p = player()
-s = skelly_boi(fists(), 1)
+s = skelly_boi(1)
 a = history_model_ai()
 battleloop(p, s, a)
 print(a.state[("s","s","s","s")])
 
+
+
+def explorer_loop(player, AI):
+	current_room = room("north",False, player)
+	while True:
+		current_room.explore()
+		if current_room.enemy:
+			battleloop(player, current_room.enemy, AI)
+		direction = dir_prompt(current_room) #TODO dir_prompt
+		current_room = room(direction, current_room.is_hidden(direction), player)
 
 
 
