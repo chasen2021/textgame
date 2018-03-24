@@ -29,9 +29,9 @@ class room:
 			self.enemy = enemy.spawn(player.level)
 
 		# if rtype == "empty":
-	def explore(self):
+	def explore(self, player):
 		if self.rtype == "loot":
-			print("you find a mysterious" + self.weapon.name +". do you want it?")
+			print("you find a mysterious " + self.weapon.name +". do you want it?")
 			response = input()
 			if response == "yes":
 				player.weapon = self.weapon

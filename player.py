@@ -17,6 +17,15 @@ class player(object):
 		self.exp = 0
 
 
+	def has_skill(self, skill):
+		for token in self.skill_tokens:
+			if token.skill == skill:
+				return token
+		return False
+
+			
+
+
 
 
 
@@ -89,4 +98,3 @@ class player(object):
 		else:
 			if not self.move_token():
 				self.levelup_token()
-

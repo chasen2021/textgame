@@ -83,6 +83,3 @@ class history_model_ai(AI):
 		if roll < d["s"]+d["p"]:
 			return "p"
 		return "c"
-
-
-
