@@ -208,22 +208,16 @@ class ThrowerAnt(Ant):
         
         while here.entrance != hive:
             if len(here.entrance.bees) != 0:
-                if r > max_range:
+                if r > self.max_range:
                     return None
-                elif r < min_range:
-                    # random_or_none(here)
-                    break
-
-
+                elif r < self.min_range:
+                    continue
                 return random_or_none(here.entrance.bees)
 
             else:
                 here = here.entrance
                 r+=1
 
-            # return True 
-
-        return random_or_none(self.place.bees)
         # END Problem 3 and 4
 
     def throw_at(self, target):
